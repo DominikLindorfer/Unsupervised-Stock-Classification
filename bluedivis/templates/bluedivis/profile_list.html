@@ -1,0 +1,12 @@
+<!-- dwitter/templates/dwitter/profile_list.html -->
+
+{% for profile in profiles %}
+
+<div>
+    <p>{{ profile.user.username }}</p>
+    <p>@{{ profile.user.username|lower }}</p>
+    <p>@{{ profile.body}}</p>
+    <p>@{{ profile.created_at}}</p>
+</div>
+
+{% endfor %}

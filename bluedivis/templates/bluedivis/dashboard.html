@@ -1,0 +1,152 @@
+<!-- dwitter/templates/dwitter/dashboard.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="column is-one-third">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="button is-link is-fullwidth is-medium mt-5"
+                type="submit">Check!
+        </button>
+    </form>
+
+    <div class="card mt-6">   
+        <div class="card-content"> <!--has-background-success-->
+            <div class="media">
+            <div class="media-content">
+                <p class="title is-6">
+                Check out the Source at 
+                <span>
+                    <a href="www.google.com">Github</a>
+                </span>
+                </p>
+                <p class="subtitle is-6">
+                
+                </p>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="column">
+  
+        {% for dweet in dweets %}
+            {% if dweet.cluster == 1 %}    
+            <div class="block">
+                <div class="card">   
+                    <div class="card-content"> <!--has-background-success-->
+                        <div class="media">
+                        <div class="media-left">
+                            <figure class="image is-48x48">
+                                <img src="https://img.icons8.com/fluency/48/000000/ok.png"/>
+                            </figure>
+                        </div>
+                        <div class="media-content">
+                            <p class="title is-4">
+                            {{ dweet.body }} is a Dividend Champion!
+                            </p>
+                            <p class="subtitle is-6">
+                            {{ dweet.created_at }}
+                            </p>
+                        </div>
+                        
+                        <!-- <div class="content has-background-white">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Phasellus nec iaculis mauris. <a>@bulmaio</a>.
+                            <a href="#">#css</a> <a href="#">#responsive</a>
+                        </div> -->
+
+                    </div>
+                    </div>
+                    <footer class="card-footer">
+                        <p class="card-footer-item">
+                          <span>
+                            View on <a href={{ dweet.url }}>Yahoo! Finance</a>
+                          </span>
+                        </p>
+                        <p class="card-footer-item">
+                          <span>
+                            Share on <a href="#">Twitter</a>
+                          </span>
+                        </p>
+                    </footer>
+                </div>
+            </div>
+
+            {% elif dweet.cluster == 0 %}    
+            <div class="block">
+                <div class="card">   
+                    <div class="card-content"> <!--has-background-success-->
+                        <div class="media">
+                        <div class="media-left">
+                            <figure class="image is-48x48">
+                            <img src="https://img.icons8.com/emoji/48/000000/cross-mark-emoji.png"
+                                    alt="Placeholder image">
+                            </figure>
+                        </div>
+                        <div class="media-content">
+                            <p class="title is-4">
+                            {{ dweet.body }} is NOT a Dividend Champion!
+                            </p>
+                            <p class="subtitle is-6">
+                            {{ dweet.created_at }}
+                            </p>
+                        </div>
+                        </div>
+                    </div>
+                    <footer class="card-footer">
+                        <p class="card-footer-item">
+                          <span>
+                            View on <a href={{ dweet.url }}>Yahoo! Finance</a>
+                          </span>
+                        </p>
+                        <p class="card-footer-item">
+                          <span>
+                            Share on <a href="#">Twitter</a>
+                          </span>
+                        </p>
+                    </footer>
+                </div>
+            </div>
+
+            {% else %}    
+            <div class="block">
+                <div class="card">   
+                    <div class="card-content has-background-danger">
+                        <div class="media">
+                        <div class="media-content">
+                            <p class="title is-4">
+                            {{ dweet.body }} is NOT in the Database!
+                            </p>
+                            <p class="subtitle is-6">
+                            {{ dweet.created_at }}
+                            </p>
+                        </div>
+                        </div>
+                    </div>
+                    <footer class="card-footer">
+                        <p class="card-footer-item">
+                          <span>
+                            View on <a href={{ dweet.url }}>Yahoo! Finance</a>
+                          </span>
+                        </p>
+                        <p class="card-footer-item">
+                          <span>
+                            Share on <a href="#">Twitter</a>
+                          </span>
+                        </p>
+                    </footer>
+                </div>
+            </div>
+            {% endif%}   
+        {% endfor %}
+
+</div>
+
+
+
+{% endblock content %}
