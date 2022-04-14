@@ -4,12 +4,19 @@
 
 {% block content %}
 
-<div class="column is-one-third">
+<div class="column is-one-third is-offset-0">
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button class="button is-link is-fullwidth is-medium mt-5"
-                type="submit">Check!
+                type="submit">Check for a Dividend Champion!
+        </button>
+    </form>
+
+    <form method="post">
+        {% csrf_token %}
+        <button class="button is-link is-fullwidth is-medium mt-5">
+                Check Blue Chip (Coming Soon!)
         </button>
     </form>
 
@@ -20,8 +27,9 @@
                 <p class="title is-6">
                 Check out the Source at 
                 <span>
-                    <a href="www.google.com">Github</a>
+                    <a href="https://github.com/DominikLindorfer">Github</a>
                 </span>
+               
                 </p>
                 <p class="subtitle is-6">
                 
@@ -32,7 +40,7 @@
     </div>
 </div>
 
-<div class="column">
+<div class="column is-two-third is-offset-1">
   
         {% for dweet in dweets %}
             {% if dweet.cluster == 1 %}    
