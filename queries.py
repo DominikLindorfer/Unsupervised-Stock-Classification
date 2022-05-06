@@ -32,6 +32,7 @@ if __name__ == '__main__':
     names = list(map(lambda x: x[0], cursor.description))
     print(names)
     print(cursor.fetchall())
+    # cursor.execute("DROP TABLE IF EXISTS bluedivis_dweet")
 
     cursor.execute("DROP TABLE IF EXISTS bluedivis_mlresult")
     table = """ CREATE TABLE bluedivis_mlresult (
@@ -43,13 +44,12 @@ if __name__ == '__main__':
             ); """
     cursor.execute(table)
 
-    # Put ML Result into sqlite DB
+    # Put Divis ML Result into sqlite DB
     df_MLResult = pickle.load(open("df_all.pkl", "rb"))
     df_MLResult["TICKER"] = df_MLResult["TICKER"].str.split("-", n = 1, expand = True)[0]
     df_MLResult.reset_index(inplace=True)
     df_MLResult.rename(columns={"index" : "id"}, inplace=True)
     df_MLResult[["id", "TICKER", "divs_paid", "div_yield_mean", "cluster"]].to_sql("bluedivis_mlresult", con, if_exists="replace", index=False)
-
     
     cursor.execute("SELECT * FROM bluedivis_mlresult WHERE TICKER = 'ZION'")
     print(cursor.fetchall())
@@ -57,6 +57,18 @@ if __name__ == '__main__':
     cursor.execute("SELECT * FROM bluedivis_mlresult")
     names = list(map(lambda x: x[0], cursor.description))
     print(names)
+    print(cursor.fetchall())
+
+
+    # Put Blue Chip ML Result into sqlite DB
+    df_MLResult_BC = pickle.load(open("result_bluechips.pkl", "rb"))
+    df_MLResult_BC["TICKER"] = df_MLResult_BC["TICKER"].str.split("-", n = 1, expand = True)[0]
+    df_MLResult_BC["TICKER"] = df_MLResult_BC["TICKER"].str.split("/", n = 1, expand = True)[0]
+    df_MLResult_BC.reset_index(inplace=True)
+    df_MLResult_BC.rename(columns={"index" : "id"}, inplace=True)
+    df_MLResult_BC.to_sql("bluedivis_mlresultbluechips", con, if_exists="replace", index=False)
+    
+    cursor.execute("SELECT * FROM bluedivis_mlresultbluechips WHERE TICKER = 'ZION'")
     print(cursor.fetchall())
 
 

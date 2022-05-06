@@ -9,14 +9,10 @@
         {% csrf_token %}
         {{ form.as_p }}
         <button class="button is-link is-fullwidth is-medium mt-5"
-                type="submit">Check for a Dividend Champion!
+                type="submit" name="divis">Check for a Dividend Champion!
         </button>
-    </form>
-
-    <form method="post">
-        {% csrf_token %}
-        <button class="button is-link is-fullwidth is-medium mt-5">
-                Check Blue Chip (Coming Soon!)
+        <button class="button is-link is-fullwidth is-medium mt-5"
+            type="submit" name="bluechips">Check for a Blue Chip!
         </button>
     </form>
 
@@ -53,9 +49,14 @@
                                 <img src="https://img.icons8.com/fluency/48/000000/ok.png"/>
                             </figure>
                         </div>
-                        <div class="media-content">
+                        <div class="media-content is-right">
                             <p class="title is-4">
+                            {% if dweet.is_champion %}    
                             {{ dweet.body }} is a Dividend Champion!
+                            {% endif %}  
+                            {% if dweet.is_bluechip %}    
+                            {{ dweet.body }} is a Blue Chip!
+                            {% endif %}
                             </p>
                             <p class="subtitle is-6">
                             {{ dweet.created_at }}
@@ -98,7 +99,12 @@
                         </div>
                         <div class="media-content">
                             <p class="title is-4">
-                            {{ dweet.body }} is NOT a Dividend Champion!
+                                {% if dweet.is_champion %}    
+                                {{ dweet.body }} is NOT a Dividend Champion!
+                                {% endif %}  
+                                {% if dweet.is_bluechip %}    
+                                {{ dweet.body }} is NOT a Blue Chip!
+                                {% endif %}  
                             </p>
                             <p class="subtitle is-6">
                             {{ dweet.created_at }}
