@@ -1,3 +1,3 @@
 # Unsupervised-Stock-Classification
 
-See the Django Project at <http://dividendorbluechip.ml>
+Visit the project at <http://dividendorbluechip.ml>
